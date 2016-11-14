@@ -17,7 +17,7 @@ namespace JDM.Playground.StringTokenizer
                 var matchedDataItem = "";
                 if (Enum.TryParse(token.ToUpper(), out recognizedToken))
                 {
-                    if (tokenData.TryGetValue(recognizedToken, out matchedDataItem))
+                    if (tokenData.TryGetValue(recognizedToken, out matchedDataItem) && !string.IsNullOrWhiteSpace(matchedDataItem))
                     {
                         filledTokens.Add(matchedDataItem);
                     }
