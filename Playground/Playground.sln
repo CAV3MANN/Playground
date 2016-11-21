@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringTokenizer", "StringTo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssortedTests", "AssortedTests\AssortedTests.csproj", "{FFE51590-6A72-4831-A31B-B65E3AB7FA10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfExperiments", "WpfExperiments\WpfExperiments.csproj", "{92DD58B6-1558-439D-BBF3-0A1FCAC53F6C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FFE51590-6A72-4831-A31B-B65E3AB7FA10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFE51590-6A72-4831-A31B-B65E3AB7FA10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFE51590-6A72-4831-A31B-B65E3AB7FA10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92DD58B6-1558-439D-BBF3-0A1FCAC53F6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92DD58B6-1558-439D-BBF3-0A1FCAC53F6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92DD58B6-1558-439D-BBF3-0A1FCAC53F6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92DD58B6-1558-439D-BBF3-0A1FCAC53F6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
