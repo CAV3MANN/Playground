@@ -15,6 +15,8 @@ async Task Main()
 	// how many items (MAX) can be a part of the buffer, as well as to potentially speed up the Dequeu process (as
 	// Telemetry buffer provides a copy of the entire list at Dequeue and then clears itself, instead of dequeuing one by one.
 	// I'm curious about the performance implications of this 🤔
+	// Blocking Collections sound... neat: https://docs.microsoft.com/en-us/dotnet/api/system.collections.concurrent.blockingcollection-1?view=netcore-3.1
+	// |--> https://docs.microsoft.com/en-us/dotnet/standard/collections/thread-safe/blockingcollection-overview
 	
 	var queueBoy3000 = new QueuBoy3000<int>();		
 	
