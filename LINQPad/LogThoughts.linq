@@ -4,8 +4,6 @@
   <Namespace>System.Threading.Tasks</Namespace>
 </Query>
 
-#nullable enable
-
 void Main()
 {
 	// ILogDetailProcessor implementations will take log details, put them in a standardized message, and place them on
@@ -19,6 +17,8 @@ void Main()
 	var completedLogDetail = specificLogDetailBuilder.Complete();		
 	
 	logDetailProcessor.Process(completedLogDetail);	
+	// or the following for slightly less typing...
+	// logDetailProcessor.Process(specificLogDetailBuilder);
 }
 
 ILogDetailProcessor GetLogDetailProcessor()
@@ -163,6 +163,7 @@ public interface IStandardLogBuilder<TApplication, TDevice, TProcess>
 	where TProcess : ProcessDetail
 {
 	StandardizedLogMessage GenerateStandardizedLogMessage<T>(T logDetail) where T : ILogDetail;
+	StandardizedLogMessage GenerateStandardizedLogMessage<T>(ILogDetailBuilder<T> logDetailBuilderVisitor) where T : ILogDetail;
 }
 
 public interface IStandardizedLogMessageBuilder : IStandardLogBuilder<ApplicationDetail, DeviceDetail, ProcessDetail>
@@ -213,11 +214,17 @@ public sealed class StandardizedLogBuilder : IStandardizedLogMessageBuilder
 	{
 		return new StandardizedLogMessage<T>(applicationDetailRetriever.Detail, deviceDetailRetriever.Detail, processDetailRetiver.Retrieve(), logDetail);
 	}
+
+	public StandardizedLogMessage GenerateStandardizedLogMessage<T>(ILogDetailBuilder<T> logDetailBuilderVisitor) where T : ILogDetail
+	{
+		return new StandardizedLogMessage<T>(applicationDetailRetriever.Detail, deviceDetailRetriever.Detail, processDetailRetiver.Retrieve(), logDetailBuilderVisitor.Complete());
+	}
 }
 
 public interface ILogDetailProcessor
 {
 	void Process<T>(T detail) where T : ILogDetail;
+	void Process<T>(ILogDetailBuilder<T> logDetailBuilderVisitor) where T : ILogDetail;
 }
 
 public sealed class StandardLogDetailProcessor : ILogDetailProcessor
@@ -237,12 +244,20 @@ public sealed class StandardLogDetailProcessor : ILogDetailProcessor
 		var standardLogMessage = standardizedLogMessageBuilder.GenerateStandardizedLogMessage(detail);		
 		
 		// Wanted to play around with Pattern Matching 😎
-		//switch(standardLogMessage)
-		//{
-		//	case StandardizedLogMessage<SpecificLogDetail> c: c.Dump("Type recognized"); break;
-		//	case StandardizedLogMessage slm: slm.Dump("Type not recognized"); break;
-		//};
+		// Comment out for real use...
+		switch(standardLogMessage)
+		{
+			case StandardizedLogMessage<SpecificLogDetail> c: c.Dump("Type recognized"); break;
+			case StandardizedLogMessage slm: slm.Dump("Type not recognized"); break;
+		};
 		
+		logMessageProcess.Process(standardLogMessage);
+	}
+
+	public void Process<T>(ILogDetailBuilder<T> logDetailBuilderVisitor) where T : ILogDetail
+	{
+		var standardLogMessage = standardizedLogMessageBuilder.GenerateStandardizedLogMessage(logDetailBuilderVisitor);
+
 		logMessageProcess.Process(standardLogMessage);
 	}
 }
